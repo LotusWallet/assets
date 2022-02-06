@@ -1,0 +1,25 @@
+{
+    "name": "DAPP NAME WHICH IS USED TO SHOW IN LIST",
+    "url": "THE DAPP URL WHICH IS USED TO OEPN IN LOTUSWALLET DAPP",
+    "chain": "in which chain ,currently support:Bitcoin, Litecoin, Dogecoin, Ethereum EVM SERIES, TRON, Solana, Polkadot, Chia ",  
+    "source_code": "optional, github url if possible",
+    "whitepaper": "optional, url of your project",
+    "logo": "url of project logo, format: jpg/jpeg/png, size:256*256/400*400",
+    "socials": [
+        {
+            "name": "Twitter",
+            "url": ""
+        },
+        {
+            "name": "Reddit",
+            "url": ""
+        }
+    ],
+    "details": [
+        {
+            "language": "en",
+            "description": "INTRO OF YOUR DAPP , 40-100 WORDS"
+        }
+    ],
+    "author": "the author of dapp, or company name",
+}
