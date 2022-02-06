@@ -18,7 +18,8 @@ Please note that __brand new tokens are not accepted__,
 the projects have to be sound, with information available, and __non-minimal circulation__
 (for limit details see REQUIREMENTS)
 
-a easy way is to duplicate the samplecoin or sample dapp , modify to fit your own project and than commit to the repository
+a easy way is to duplicate the samplecoin or sample dapp , modify to fit your own project and than commit to the repository, the sample coin is Tether on Ethereum:
+https://github.com/LotusWallet/assets/tree/main/blockchains/ethereum/0xdAC17F958D2ee523a2206206994597C13D831ec7/
 
 attention: coins are classified by chains whereas dapps not
 
