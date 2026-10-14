@@ -1,0 +1,15 @@
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Python（脚本只用标准库，但本地调试时可能产生）
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 本地抓取的临时快照：不要提交，产物请走 chains/ 与 chainlist/
+*.tmp.json
