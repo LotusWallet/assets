@@ -1,0 +1,32 @@
+{
+  "_readme": [
+    "DApp 收录申请表 —— 复制本文件为 market/submissions/<你的项目 id>.json 后填写，",
+    "然后向本仓库提 Pull Request。合并后 market/dapps.json 会由 CI 自动重新生成，",
+    "客户端在下次刷新时即可看到（不需要发新版 App）。",
+    "",
+    "硬性要求：",
+    "1. 只接受『品牌新项目不收』—— 项目须已上线、有公开信息、有真实用户与流通；",
+    "2. url 必须是 https，且域名与项目官网一致；",
+    "3. chains 里的 id 取自 chains/chains.json（如 ethereum / bsc / arbitrum），不确定就留空数组；",
+    "4. category 必须是 market/curated.json 里已定义的分类 id。",
+    "",
+    "填写说明写完后请删除本 _readme 字段。"
+  ],
+  "id": "your-project-id",
+  "name": "Your DApp Name",
+  "url": "https://your-dapp.example",
+  "category": "dex",
+  "description": "40-100 字，说明这个 DApp 做什么、为什么值得放进来。",
+  "chains": ["ethereum", "bsc"],
+  "tags": ["swap"],
+  "logo": "https://your-dapp.example/logo.png",
+  "audits": ["https://example.com/audit-report.pdf"],
+  "sourceCode": "https://github.com/your-org/your-repo",
+  "author": "Your Team / Company",
+  "socials": {
+    "twitter": "https://x.com/your-handle",
+    "telegram": "https://t.me/your-channel",
+    "discord": "https://discord.gg/your-invite"
+  },
+  "contact": "dev@your-dapp.example"
+}
