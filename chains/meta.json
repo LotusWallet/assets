@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-10-14T02:51:57Z",
+  "generator": "tools/sync_chainlist.py",
+  "chainlistEntries": 2803,
+  "counts": {
+    "total": 49,
+    "evmMainnet": 30,
+    "evmTestnet": 10,
+    "nonEvm": 9
+  },
+  "whitelist": {
+    "mainnet": 30,
+    "testnet": 10
+  },
+  "skippedChainIds": [],
+  "chainlist": {
+    "source": "file:rpcs.json",
+    "fetchedAt": "2026-10-14T02:51:57Z",
+    "sha256": "cf530d5ab1bab8c9be44f8631a35c456cf488b2bae850ef7d4558a241d0f3a7b",
+    "bytes": 1193263
+  },
+  "chainsSha256": "4c6c5de5a054302e57feb30a28c1bec64373e528ac5f27dc0fce59fdec68ca65"
+}
