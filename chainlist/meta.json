@@ -1,0 +1,8 @@
+{
+  "source": "file:rpcs.json",
+  "fetchedAt": "2026-10-14T02:51:57Z",
+  "bytes": 1193263,
+  "sha256": "cf530d5ab1bab8c9be44f8631a35c456cf488b2bae850ef7d4558a241d0f3a7b",
+  "mirroredFile": "rpcs.json",
+  "note": "chainlist 原始数据原样转存；不要手工编辑此文件。"
+}
