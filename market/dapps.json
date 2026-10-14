@@ -1,0 +1,350 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T03:34:00Z",
+  "source": "https://github.com/LotusWallet/assets",
+  "categories": [
+    {
+      "id": "dex",
+      "name": "交易 / DEX",
+      "order": 0
+    },
+    {
+      "id": "lending",
+      "name": "借贷",
+      "order": 1
+    },
+    {
+      "id": "staking",
+      "name": "理财 / 质押",
+      "order": 2
+    },
+    {
+      "id": "bridge",
+      "name": "跨链桥",
+      "order": 3
+    },
+    {
+      "id": "nft",
+      "name": "NFT",
+      "order": 4
+    },
+    {
+      "id": "tools",
+      "name": "工具",
+      "order": 5
+    }
+  ],
+  "dapps": [
+    {
+      "id": "aave",
+      "name": "Aave",
+      "url": "https://app.aave.com",
+      "category": "lending",
+      "description": "多链借贷协议，支持存款生息与抵押借币。",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ],
+      "tags": [
+        "lending"
+      ],
+      "featured": true,
+      "order": 0
+    },
+    {
+      "id": "lido",
+      "name": "Lido",
+      "url": "https://stake.lido.fi",
+      "category": "staking",
+      "description": "以太坊流动性质押，质押后拿到可流通的 stETH。",
+      "chains": [
+        "ethereum"
+      ],
+      "tags": [
+        "staking",
+        "liquid-staking"
+      ],
+      "featured": true,
+      "order": 0
+    },
+    {
+      "id": "opensea",
+      "name": "OpenSea",
+      "url": "https://opensea.io",
+      "category": "nft",
+      "description": "最大的 NFT 交易市场之一。",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base"
+      ],
+      "tags": [
+        "nft"
+      ],
+      "featured": false,
+      "order": 0
+    },
+    {
+      "id": "stargate",
+      "name": "Stargate",
+      "url": "https://stargate.finance",
+      "category": "bridge",
+      "description": "基于 LayerZero 的跨链流动性转移协议。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "avalanche",
+        "base",
+        "linea"
+      ],
+      "tags": [
+        "bridge",
+        "cross-chain"
+      ],
+      "featured": false,
+      "order": 0
+    },
+    {
+      "id": "uniswap",
+      "name": "Uniswap",
+      "url": "https://app.uniswap.org",
+      "category": "dex",
+      "description": "以太坊上最主流的去中心化交易协议，多链部署。",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "bsc"
+      ],
+      "tags": [
+        "swap",
+        "liquidity"
+      ],
+      "featured": true,
+      "order": 0
+    },
+    {
+      "id": "compound",
+      "name": "Compound",
+      "url": "https://app.compound.finance",
+      "category": "lending",
+      "description": "老牌去中心化借贷协议，以太坊主网为主。",
+      "chains": [
+        "ethereum",
+        "base"
+      ],
+      "tags": [
+        "lending"
+      ],
+      "featured": false,
+      "order": 1
+    },
+    {
+      "id": "dexscreener",
+      "name": "DEX Screener",
+      "url": "https://dexscreener.com",
+      "category": "tools",
+      "description": "跨链交易对行情与流动性查看，只读、无需连接钱包。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche",
+        "solana"
+      ],
+      "tags": [
+        "analytics",
+        "price"
+      ],
+      "featured": false,
+      "order": 1
+    },
+    {
+      "id": "pancakeswap",
+      "name": "PancakeSwap",
+      "url": "https://pancakeswap.finance",
+      "category": "dex",
+      "description": "BNB Chain 生态的交易与流动性平台。",
+      "chains": [
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "base"
+      ],
+      "tags": [
+        "swap",
+        "farm"
+      ],
+      "featured": false,
+      "order": 1
+    },
+    {
+      "id": "relay",
+      "name": "Relay Chain",
+      "url": "https://relay.link",
+      "category": "bridge",
+      "description": "跨链桥，支持多条 EVM 链之间的资产转移。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base"
+      ],
+      "tags": [
+        "bridge",
+        "cross-chain"
+      ],
+      "featured": false,
+      "order": 1
+    },
+    {
+      "id": "1inch",
+      "name": "1inch",
+      "url": "https://app.1inch.io",
+      "category": "dex",
+      "description": "DEX 聚合器，自动在多个流动性来源间寻找最优价格。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "avalanche",
+        "base"
+      ],
+      "tags": [
+        "aggregator",
+        "swap"
+      ],
+      "featured": false,
+      "order": 2
+    },
+    {
+      "id": "jito",
+      "name": "Jito",
+      "url": "https://www.jito.network",
+      "category": "staking",
+      "description": "Solana 上的流动性质押与 MEV 收益。",
+      "tags": [
+        "solana",
+        "liquid-staking"
+      ],
+      "featured": false,
+      "order": 2
+    },
+    {
+      "id": "tenderly",
+      "name": "Tenderly Simulator",
+      "url": "https://dashboard.tenderly.co/simulator/new",
+      "category": "tools",
+      "description": "在签名前模拟交易结果，避免误签恶意合约。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ],
+      "tags": [
+        "security",
+        "simulation"
+      ],
+      "featured": false,
+      "order": 2
+    },
+    {
+      "id": "curve",
+      "name": "Curve Finance",
+      "url": "https://curve.fi",
+      "category": "dex",
+      "description": "稳定币与同锚定资产的低滑点交易。",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ],
+      "tags": [
+        "swap",
+        "stablecoin"
+      ],
+      "featured": false,
+      "order": 3
+    },
+    {
+      "id": "revoke",
+      "name": "Revoke.cash",
+      "url": "https://revoke.cash",
+      "category": "tools",
+      "description": "查看并撤销代币授权，钱包安全必备。",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ],
+      "tags": [
+        "security",
+        "approval"
+      ],
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "url": "https://jup.ag",
+      "category": "dex",
+      "description": "Solana 上的交易聚合器，自动寻找最优路由。",
+      "chains": [
+        "solana"
+      ],
+      "tags": [
+        "solana",
+        "aggregator"
+      ],
+      "featured": false,
+      "order": 4
+    },
+    {
+      "id": "gmx",
+      "name": "GMX",
+      "url": "https://app.gmx.io",
+      "category": "dex",
+      "description": "去中心化永续合约与现货交易。",
+      "chains": [
+        "arbitrum",
+        "avalanche"
+      ],
+      "tags": [
+        "perpetuals",
+        "swap"
+      ],
+      "featured": false,
+      "order": 5
+    }
+  ]
+}
