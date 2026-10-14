@@ -19,16 +19,17 @@ LotusWallet/assets —— chainlist 同步 + 链清单生成。
 
 用法
 ----
-    # 联网抓取（正常情况；CI 里就是这么跑的）
+    # 联网抓取（正常情况；本机定期同步就是这么跑的）
     python tools/sync_chainlist.py --fetch
 
     # 用本地缓存文件（无网络时）
     python tools/sync_chainlist.py --from-file /path/to/rpcs.json
 
-    # 只校验产物、不写文件（CI 的 check 步骤）
+    # 只校验产物、不写文件（提交前的检查步骤）
     python tools/sync_chainlist.py --check
 
-退出码：0 成功 / 1 失败。CI 里失败会让工作流变红，不会静默产出坏数据。
+退出码：0 成功 / 1 失败。失败必须是「响的」，不能静默产出坏数据 ——
+本机定期同步脚本靠这个退出码决定要不要往下发布。
 """
 
 from __future__ import annotations
@@ -36,8 +37,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
+import ssl
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -45,9 +49,24 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
+# ⚠️ 顺序有讲究：**canonical 源必须排第一**。
+#
+# 两个源是同一份数据的两副面孔，但质量差得远：
+#
+#   `chainid.network/chains.json`  —— ethereum-lists/chains 官方数据集，chainlist.org 自己也是
+#       从它生成页面的。`rpc` 是**字符串数组**，顺序是社区人工维护的「先能用、先可信」，
+#       Ethereum 那条依次是 Infura（带占位符，会被过滤）→ mycryptoapi → Cloudflare → PublicNode。
+#
+#   `chainlist.org/rpcs.json`     —— 由上面的数据再加工，带 `tracking` 元信息。但它的
+#       `rpc` 顺序**噪声很大**：排在最前面的是 `xrpc.cl`、`lb.routeme.sh`、
+#       `one.valve.city/rpc/vk_demo/...`（名字里直接写着 demo）这类来源不明的端点。
+#       同一个「取前 4 个」的规则，在这个源上会挑出一串明显更差的节点。
+#
+# 所以：canonical 源优先，chainlist.org 只作兜底。第二项仍然保留价值和意义 ——
+# 它带 `tracking` 字段，真的到了要用它的时候 `clean_rpcs` 会把明确跟踪使用者的端点降级。
 CHAINLIST_SOURCES = [
-    "https://chainlist.org/rpcs.json",
     "https://chainid.network/chains.json",
+    "https://chainlist.org/rpcs.json",
 ]
 
 RAW_OUT = REPO / "chainlist" / "rpcs.json"
@@ -176,6 +195,32 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _build_opener() -> urllib.request.OpenerDirector:
+    """显式控制代理与 TLS —— 不吃环境变量的暗亏。
+
+    shell 里被注入的 `HTTPS_PROXY`（本机是 `http://127.0.0.1:53117`）会改坏请求体，
+    GitHub 那边会报随机的 `malformed request`。抓 chainlist 是 GET，症状没 PUT 那么明显，
+    但既然本机已经确认 `PUBLISH_PROXY=http://127.0.0.1:8800` 这条链路是稳的，
+    就在这里统一用同一个变量，避免「有的脚本走这条、有的走那条」。
+
+    没设 `PUBLISH_PROXY` 时显式传空字典，**屏蔽环境代理**走直连 ——
+    行为可预测，比「看环境里有什么就用什么」强。
+    """
+    context = ssl.create_default_context()
+    # 本链路到 1.2 才稳：TLS 1.3 的握手会被中间设备打断（SSLEOFError）。
+    context.maximum_version = ssl.TLSVersion.TLSv1_2
+    proxy = os.environ.get("PUBLISH_PROXY")
+    proxies = {"http": proxy, "https": proxy} if proxy else {}
+    return urllib.request.build_opener(
+        urllib.request.ProxyHandler(proxies),
+        urllib.request.HTTPSHandler(context=context),
+    )
+
+
+_OPENER = _build_opener()
+FETCH_RETRIES = 4
+
+
 def fetch(url: str, timeout: int = 60) -> bytes:
     request = urllib.request.Request(
         url,
@@ -185,8 +230,19 @@ def fetch(url: str, timeout: int = 60) -> bytes:
             "Accept": "application/json",
         },
     )
-    with urllib.request.urlopen(request, timeout=timeout) as resp:
-        return resp.read()
+    last: Exception | None = None
+    for attempt in range(1, FETCH_RETRIES + 1):
+        try:
+            with _OPENER.open(request, timeout=timeout) as resp:
+                return resp.read()
+        except urllib.error.HTTPError:
+            raise  # 有响应说明链路是通的，重试没意义
+        except (urllib.error.URLError, ssl.SSLError, TimeoutError, ConnectionError) as exc:
+            last = exc
+            if attempt < FETCH_RETRIES:
+                print(f"  第 {attempt} 次失败（{exc}），重试……", file=sys.stderr)
+                time.sleep(1.5 * attempt)
+    raise last  # type: ignore[misc]
 
 
 def load_chainlist(args) -> tuple[bytes, str]:
@@ -212,21 +268,56 @@ def load_chainlist(args) -> tuple[bytes, str]:
     raise SystemExit(f"全部 chainlist 源均不可用：{last_err}")
 
 
+def _rpc_entries(raw: list) -> list[tuple[str, str]]:
+    """把 chainlist 的 `rpc` 字段归一成 [(url, tracking)]。
+
+    ⚠️ 这个字段的格式**变过**，是本仓库踩过最贵的一个坑：
+
+      - 老版本：`"rpc": ["https://a", "https://b"]` —— 字符串数组
+      - 新版本：`"rpc": [{"url": "https://a", "tracking": "none"}, …]` —— 对象数组
+
+    旧代码只认字符串（`if not isinstance(url, str): continue`），于是上游一改格式，
+    **每一条链的 RPC 都被判成「不是字符串」丢掉**，40 条白名单链一条都产不出来，
+    产物从 49 条链缩成 9 条（只剩非 EVM）—— 而 `verify.py` 照样报「体检通过」。
+
+    所以这里两种都收：只要拿得到 URL，格式怎么变都不至于静默归零。
+    """
+    out: list[tuple[str, str]] = []
+    for item in raw or []:
+        if isinstance(item, str):
+            # 老格式没有 tracking 信息，用 unknown 占位
+            out.append((item, "unknown"))
+        elif isinstance(item, dict):
+            url = item.get("url")
+            if isinstance(url, str):
+                out.append((url, str(item.get("tracking") or "unknown").lower()))
+    return out
+
+
 def clean_rpcs(raw: list) -> list[str]:
-    """挑出可直接使用的公共 HTTPS RPC，去掉带占位符的付费端点与 ws://。"""
-    out: list[str] = []
-    for url in raw or []:
-        if not isinstance(url, str):
-            continue
+    """挑出可直接使用的公共 HTTPS RPC，去掉带占位符的付费端点与 ws://。
+
+    排序上把 `tracking != "yes"` 的排在前面：标了 `tracking: yes` 的端点明确会记录
+    使用者，对一个把隐私当卖点的钱包不该是首选。
+
+    但这是**排序**、不是过滤 —— 有些链只有带 tracking 的公共端点，
+    一刀切会让这条链直接消失，那比用一个不理想的节点糟得多。
+    """
+    seen: set[str] = set()
+    candidates: list[tuple[bool, int, str]] = []
+    for index, (url, tracking) in enumerate(_rpc_entries(raw)):
         if not url.startswith("https://"):
             continue
         if _PLACEHOLDER.search(url):
             continue
-        if url not in out:
-            out.append(url)
-        if len(out) >= MAX_RPC:
-            break
-    return out
+        if url in seen:
+            continue
+        seen.add(url)
+        # False 排前面；同组内保持上游给出的原始顺序（那是它们的可用性排序）
+        candidates.append((tracking == "yes", index, url))
+
+    candidates.sort(key=lambda item: (item[0], item[1]))
+    return [url for _tracked, _index, url in candidates[:MAX_RPC]]
 
 
 def explorer_urls(entry: dict) -> tuple[str | None, str | None]:
@@ -408,8 +499,8 @@ def main() -> int:
     raw_bytes, source = load_chainlist(args)
     raw_sha = sha256_bytes(raw_bytes)
 
-    # 内容没变就不动文件：让「每日同步」在没有变化时保持仓库安静，
-    # 也避免 Actions 每天产生一次无意义的提交。
+    # 内容没变就不动文件：让「定期同步」在没有变化时保持仓库安静，
+    # 也避免每天产生一次无意义的提交。
     if RAW_OUT.exists() and sha256_bytes(RAW_OUT.read_bytes()) == raw_sha:
         print("chainlist 内容与上次一致，转存文件保持不变")
     elif args.dry_run:
