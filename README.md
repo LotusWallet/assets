@@ -14,7 +14,7 @@ LotusWallet 的**公共只读资源库**。App 需要的、不需要随版本发
 | `chains/` | **公链清单**（客户端直接消费） | LotusWallet App |
 | `chainlist/` | chainlist 原始数据的转存快照 | 人 / 审计 / 生成脚本 |
 | `market/` | **DApp 市场清单**（客户端直接消费）+ 待收录提交 | LotusWallet App |
-| `tools/` | 生成与校验脚本（CI 也跑这些） | CI / 维护者 |
+| `tools/` | 生成与校验脚本（维护者在提交前跑） | 维护者 |
 | `blockchains/` | ⚠️ **旧版**代币图标库，保留不动 | 历史遗留 |
 | `dapps/` | ⚠️ **旧版** DApp 提交模板，保留不动 | 历史遗留 |
 
@@ -85,8 +85,8 @@ python tools/sync_chainlist.py --check                    # 只校验产物
 
 ### 怎么加一条链
 
-在 `tools/sync_chainlist.py` 的白名单里加一个 `chainId` → 重跑脚本 → 提交 PR。
-CI 会校验白名单里的链全部产出成功；RPC 死链 / 被上游废弃的链会让 CI 报警
+在 `tools/sync_chainlist.py` 的白名单里加一个 `chainId` → 重跑脚本 → 提交。
+`--check` 会校验白名单里的链全部产出成功；RPC 死链 / 被上游废弃的链会报警
 （如 `167009 Taiko Hekla` 已被 chainlist 标记 deprecated 并撤掉全部公共 RPC）。
 
 ---
@@ -110,11 +110,11 @@ market/
 
 ```bash
 python tools/build_market.py            # 重新生成 dapps.json
-python tools/build_market.py --check    # CI 校验
+python tools/build_market.py --check    # 校验产物与源数据一致
 ```
 
 生成时会把条目里的 `chains` 与 `chains/chains.json`、`category` 与
-`curated.json` 的分类交叉校验 —— 写错了 CI 直接红。
+`curated.json` 的分类交叉校验 —— 写错了直接失败，不会把坏数据推上去。
 
 **下架也走同一条路**：从 `curated.json` 或 `submissions/` 删掉条目、重新生成，
 客户端下次刷新即生效，不需要用户升级 App。
@@ -127,18 +127,22 @@ python tools/build_market.py --check    # CI 校验
 | --- | --- |
 | `sync_chainlist.py` | 转存 chainlist + 生成 `chains/chains.json`；`--check` 校验 |
 | `build_market.py` | 生成 `market/dapps.json`；`--check` 校验 |
-| `verify.py` | 对所有产物做一次结构体检（CI 最后一步） |
+| `verify.py` | 对所有产物做一次结构体检（提交前最后一步） |
 
-全部是 Python 3.9+ 标准库，**没有第三方依赖** —— 保证 GitHub Actions 里零安装成本，
-也保证几年后还能跑起来。
+全部是 Python 3.9+ 标准库，**没有第三方依赖** —— 零安装成本，也保证几年后还能跑起来。
 
-### CI
+### 定时同步怎么做（不使用 GitHub Actions）
 
-`.github/workflows/sync-data.yml`：
+链清单是外部数据，没人改代码也会漂，因此需要定期重跑。**这件事在开发机上做**：
 
-- **每天 03:00 UTC 定时**：同步 chainlist → 重新生成 → 有变化才提交；
-- **每次 PR / push**：跑全部 `--check`，坏数据进不来；
-- **手动触发**：Actions 页面 `Run workflow`。
+```bash
+python tools/sync_chainlist.py          # 需要能访问 chainlist.org
+python tools/verify.py
+# 有变化再提交：走 repos/publish.py assets --yes
+```
+
+按项目约定，GitHub 只用于存放与分发，**不使用它的部署/打包能力**，
+所以这里没有 `.github/workflows/`。定时触发由开发机上的计划任务承担。
 
 ---
 
