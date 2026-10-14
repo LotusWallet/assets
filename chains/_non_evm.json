@@ -1,0 +1,184 @@
+{
+  "_comment": [
+    "非 EVM 链的唯一权威定义（Bitcoin / Litecoin / Dash / Solana / ICP / Monero / Filecoin / Chia / TRON）。",
+    "chainlist 只覆盖 EVM 系，其余链需要人工维护 —— 因此把它们单独抽成这个文件，",
+    "由 tools/sync_chainlist.py 原样并入生成的 chains/chains.json。",
+    "改这里 → 重跑脚本 → chains/chains.json 更新；不要直接改 chains/chains.json（会被覆盖）。",
+    "",
+    "rpcUrls 的说明：非 EVM 链的公共节点生态比 EVM 差得多，很多小链根本没有稳定的公共 API。",
+    "这里只填可以公开访问的入口，并且都允许用户在自己的「链管理」里增删改 ——",
+    "客户端对这些链当前只做账户管理（地址派生与展示），不依赖节点可达性。",
+    "Chia 的公网节点没有公认的稳定入口，故留空（客户端会显示「无」，用户可自行添加）。"
+  ],
+  "chains": [
+    {
+      "family": "utxo",
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "coinType": 0,
+      "decimals": 8,
+      "addressType": "NATIVE_SEGWIT",
+      "hrp": "bc",
+      "p2pkhVersion": 0,
+      "p2shVersion": 5,
+      "dustThreshold": 294,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://mempool.space/api",
+        "https://blockstream.info/api"
+      ],
+      "explorerTxUrl": "https://mempool.space/tx/",
+      "explorerAddressUrl": "https://mempool.space/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "utxo",
+      "id": "litecoin",
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "coinType": 2,
+      "decimals": 8,
+      "addressType": "NATIVE_SEGWIT",
+      "hrp": "ltc",
+      "p2pkhVersion": 48,
+      "p2shVersion": 50,
+      "dustThreshold": 546,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://litecoinspace.org/api"
+      ],
+      "explorerTxUrl": "https://litecoinspace.org/tx/",
+      "explorerAddressUrl": "https://litecoinspace.org/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "utxo",
+      "id": "dash",
+      "name": "Dash",
+      "symbol": "DASH",
+      "coinType": 5,
+      "decimals": 8,
+      "addressType": "LEGACY",
+      "hrp": null,
+      "p2pkhVersion": 76,
+      "p2shVersion": 16,
+      "dustThreshold": 546,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://insight.dash.org/insight-api"
+      ],
+      "explorerTxUrl": "https://explorer.dash.org/tx/",
+      "explorerAddressUrl": "https://explorer.dash.org/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "coinType": 501,
+      "decimals": 9,
+      "variant": "SOLANA",
+      "derivation": "SLIP10",
+      "path": "m/44'/501'/0'/0'",
+      "rpcUrls": [
+        "https://api.mainnet-beta.solana.com"
+      ],
+      "explorerTxUrl": "https://explorer.solana.com/tx/",
+      "explorerAddressUrl": "https://explorer.solana.com/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "icp",
+      "name": "Internet Computer",
+      "symbol": "ICP",
+      "coinType": 223,
+      "decimals": 8,
+      "variant": "ICP",
+      "derivation": "BIP32",
+      "path": "m/44'/223'/0'/0/0",
+      "rpcUrls": [
+        "https://icp-api.io"
+      ],
+      "explorerTxUrl": "https://dashboard.internetcomputer.org/transaction/",
+      "explorerAddressUrl": "https://dashboard.internetcomputer.org/account/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "monero",
+      "name": "Monero",
+      "symbol": "XMR",
+      "coinType": 128,
+      "decimals": 12,
+      "variant": "MONERO",
+      "derivation": "SLIP10",
+      "path": "m/44'/128'/0'",
+      "addressPrefix": 18,
+      "rpcUrls": [
+        "https://node.moneroworld.com:18089"
+      ],
+      "explorerTxUrl": "https://xmrchain.net/tx/",
+      "explorerAddressUrl": "https://xmrchain.net/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "filecoin",
+      "id": "filecoin",
+      "name": "Filecoin",
+      "symbol": "FIL",
+      "coinType": 461,
+      "decimals": 18,
+      "path": "m/44'/461'/0'/0/0",
+      "addressPrefix": 1,
+      "network": "f",
+      "rpcUrls": [
+        "https://api.node.glif.io/rpc/v1",
+        "https://filecoin.chainup.net/rpc/v1"
+      ],
+      "explorerTxUrl": "https://filfox.info/en/message/",
+      "explorerAddressUrl": "https://filfox.info/en/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "chia",
+      "id": "chia",
+      "name": "Chia",
+      "symbol": "XCH",
+      "coinType": 8444,
+      "decimals": 12,
+      "path": "m/12381/8444/2/0",
+      "hrp": "xch",
+      "rpcUrls": [],
+      "explorerTxUrl": "https://www.spacescan.io/coin/",
+      "explorerAddressUrl": "https://www.spacescan.io/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "tron",
+      "id": "tron",
+      "name": "TRON",
+      "symbol": "TRX",
+      "coinType": 195,
+      "decimals": 6,
+      "rpcUrls": [
+        "https://api.trongrid.io",
+        "https://tron.nownodes.io"
+      ],
+      "explorerTxUrl": "https://tronscan.org/#/transaction/",
+      "explorerAddressUrl": "https://tronscan.org/#/address/",
+      "enabled": true,
+      "testnet": false
+    }
+  ]
+}
