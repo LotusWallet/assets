@@ -3,7 +3,8 @@
 """
 LotusWallet/assets —— 产物结构体检。
 
-CI 里在 sync_chainlist.py / build_market.py 之后跑一次，作为最后一道闸：
+在 sync_chainlist.py / build_market.py 之后跑一次，作为最后一道闸
+（本机 `repos/sync_assets.py` 就是这么串起来用的）：
 产物必须是**能被子客户端直接解析的**，而不是看起来像 JSON 就行。
 
 检查项
