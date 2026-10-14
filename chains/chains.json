@@ -1,0 +1,935 @@
+{
+  "version": 1,
+  "chains": [
+    {
+      "family": "utxo",
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "coinType": 0,
+      "decimals": 8,
+      "addressType": "NATIVE_SEGWIT",
+      "hrp": "bc",
+      "p2pkhVersion": 0,
+      "p2shVersion": 5,
+      "dustThreshold": 294,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://mempool.space/api",
+        "https://blockstream.info/api"
+      ],
+      "explorerTxUrl": "https://mempool.space/tx/",
+      "explorerAddressUrl": "https://mempool.space/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "utxo",
+      "id": "litecoin",
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "coinType": 2,
+      "decimals": 8,
+      "addressType": "NATIVE_SEGWIT",
+      "hrp": "ltc",
+      "p2pkhVersion": 48,
+      "p2shVersion": 50,
+      "dustThreshold": 546,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://litecoinspace.org/api"
+      ],
+      "explorerTxUrl": "https://litecoinspace.org/tx/",
+      "explorerAddressUrl": "https://litecoinspace.org/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "utxo",
+      "id": "dash",
+      "name": "Dash",
+      "symbol": "DASH",
+      "coinType": 5,
+      "decimals": 8,
+      "addressType": "LEGACY",
+      "hrp": null,
+      "p2pkhVersion": 76,
+      "p2shVersion": 16,
+      "dustThreshold": 546,
+      "api": "ESPLORA",
+      "rpcUrls": [
+        "https://insight.dash.org/insight-api"
+      ],
+      "explorerTxUrl": "https://explorer.dash.org/tx/",
+      "explorerAddressUrl": "https://explorer.dash.org/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "coinType": 501,
+      "decimals": 9,
+      "variant": "SOLANA",
+      "derivation": "SLIP10",
+      "path": "m/44'/501'/0'/0'",
+      "rpcUrls": [
+        "https://api.mainnet-beta.solana.com"
+      ],
+      "explorerTxUrl": "https://explorer.solana.com/tx/",
+      "explorerAddressUrl": "https://explorer.solana.com/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "icp",
+      "name": "Internet Computer",
+      "symbol": "ICP",
+      "coinType": 223,
+      "decimals": 8,
+      "variant": "ICP",
+      "derivation": "BIP32",
+      "path": "m/44'/223'/0'/0/0",
+      "rpcUrls": [
+        "https://icp-api.io"
+      ],
+      "explorerTxUrl": "https://dashboard.internetcomputer.org/transaction/",
+      "explorerAddressUrl": "https://dashboard.internetcomputer.org/account/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "ed25519",
+      "id": "monero",
+      "name": "Monero",
+      "symbol": "XMR",
+      "coinType": 128,
+      "decimals": 12,
+      "variant": "MONERO",
+      "derivation": "SLIP10",
+      "path": "m/44'/128'/0'",
+      "addressPrefix": 18,
+      "rpcUrls": [
+        "https://node.moneroworld.com:18089"
+      ],
+      "explorerTxUrl": "https://xmrchain.net/tx/",
+      "explorerAddressUrl": "https://xmrchain.net/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "filecoin",
+      "id": "filecoin",
+      "name": "Filecoin",
+      "symbol": "FIL",
+      "coinType": 461,
+      "decimals": 18,
+      "path": "m/44'/461'/0'/0/0",
+      "addressPrefix": 1,
+      "network": "f",
+      "rpcUrls": [
+        "https://api.node.glif.io/rpc/v1",
+        "https://filecoin.chainup.net/rpc/v1"
+      ],
+      "explorerTxUrl": "https://filfox.info/en/message/",
+      "explorerAddressUrl": "https://filfox.info/en/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "chia",
+      "id": "chia",
+      "name": "Chia",
+      "symbol": "XCH",
+      "coinType": 8444,
+      "decimals": 12,
+      "path": "m/12381/8444/2/0",
+      "hrp": "xch",
+      "rpcUrls": [],
+      "explorerTxUrl": "https://www.spacescan.io/coin/",
+      "explorerAddressUrl": "https://www.spacescan.io/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "tron",
+      "id": "tron",
+      "name": "TRON",
+      "symbol": "TRX",
+      "coinType": 195,
+      "decimals": 6,
+      "rpcUrls": [
+        "https://api.trongrid.io",
+        "https://tron.nownodes.io"
+      ],
+      "explorerTxUrl": "https://tronscan.org/#/transaction/",
+      "explorerAddressUrl": "https://tronscan.org/#/address/",
+      "enabled": true,
+      "testnet": false
+    },
+    {
+      "family": "evm",
+      "id": "ethereum",
+      "name": "Ethereum Mainnet",
+      "symbol": "ETH",
+      "chainId": 1,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://api.mycryptoapi.com/eth",
+        "https://cloudflare-eth.com",
+        "https://ethereum-rpc.publicnode.com",
+        "https://mainnet.gateway.tenderly.co"
+      ],
+      "explorerTxUrl": "https://etherscan.io/tx/",
+      "explorerAddressUrl": "https://etherscan.io/address/",
+      "supportsEip1559": true,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "bsc",
+      "name": "BNB Smart Chain Mainnet",
+      "symbol": "BNB",
+      "chainId": 56,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://bsc-dataseed1.bnbchain.org",
+        "https://bsc-dataseed2.bnbchain.org",
+        "https://bsc-dataseed3.bnbchain.org",
+        "https://bsc-dataseed4.bnbchain.org"
+      ],
+      "explorerTxUrl": "https://bscscan.com/tx/",
+      "explorerAddressUrl": "https://bscscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "polygon",
+      "name": "Polygon Mainnet",
+      "symbol": "POL",
+      "chainId": 137,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://polygon.drpc.org",
+        "https://rpc-mainnet.matic.quiknode.pro",
+        "https://polygon-bor-rpc.publicnode.com",
+        "https://polygon.gateway.tenderly.co"
+      ],
+      "explorerTxUrl": "https://polygonscan.com/tx/",
+      "explorerAddressUrl": "https://polygonscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "base",
+      "name": "Base",
+      "symbol": "ETH",
+      "chainId": 8453,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://mainnet.base.org/",
+        "https://developer-access-mainnet.base.org/",
+        "https://base.gateway.tenderly.co",
+        "https://base-rpc.publicnode.com"
+      ],
+      "explorerTxUrl": "https://basescan.org/tx/",
+      "explorerAddressUrl": "https://basescan.org/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "optimism",
+      "name": "OP Mainnet",
+      "symbol": "ETH",
+      "chainId": 10,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://mainnet.optimism.io",
+        "https://optimism-rpc.publicnode.com",
+        "https://optimism.gateway.tenderly.co",
+        "https://optimism.drpc.org"
+      ],
+      "explorerTxUrl": "https://optimistic.etherscan.io/tx/",
+      "explorerAddressUrl": "https://optimistic.etherscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "arbitrum",
+      "name": "Arbitrum One",
+      "symbol": "ETH",
+      "chainId": 42161,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://arb1.arbitrum.io/rpc",
+        "https://arbitrum-one-rpc.publicnode.com",
+        "https://rpcfree.com/arbitrum-rpc",
+        "https://rpc.satelink.network/rpc/arbitrum"
+      ],
+      "explorerTxUrl": "https://arbiscan.io/tx/",
+      "explorerAddressUrl": "https://arbiscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "avalanche",
+      "name": "Avalanche C-Chain",
+      "symbol": "AVAX",
+      "chainId": 43114,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://api.avax.network/ext/bc/C/rpc",
+        "https://avalanche-c-chain-rpc.publicnode.com",
+        "https://xrpc.cl/avalanche",
+        "https://avalanche-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://snowscan.xyz/tx/",
+      "explorerAddressUrl": "https://snowscan.xyz/address/",
+      "supportsEip1559": true,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "linea",
+      "name": "Linea",
+      "symbol": "ETH",
+      "chainId": 59144,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.linea.build",
+        "https://linea-rpc.publicnode.com",
+        "https://linea-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://lineascan.build/tx/",
+      "explorerAddressUrl": "https://lineascan.build/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "scroll",
+      "name": "Scroll",
+      "symbol": "ETH",
+      "chainId": 534352,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.scroll.io",
+        "https://rpc.ankr.com/scroll",
+        "https://scroll-mainnet.chainstacklabs.com",
+        "https://scroll-rpc.publicnode.com"
+      ],
+      "explorerTxUrl": "https://scrollscan.com/tx/",
+      "explorerAddressUrl": "https://scrollscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "zksync-era",
+      "name": "zkSync Mainnet",
+      "symbol": "ETH",
+      "chainId": 324,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://mainnet.era.zksync.io",
+        "https://zksync.drpc.org"
+      ],
+      "explorerTxUrl": "https://explorer.zksync.io/tx/",
+      "explorerAddressUrl": "https://explorer.zksync.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "fantom",
+      "name": "Fantom Opera",
+      "symbol": "FTM",
+      "chainId": 250,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.ftm.tools",
+        "https://fantom-rpc.publicnode.com",
+        "https://fantom.drpc.org"
+      ],
+      "explorerTxUrl": "https://ftmscan.com/tx/",
+      "explorerAddressUrl": "https://ftmscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "gnosis",
+      "name": "Gnosis",
+      "symbol": "XDAI",
+      "chainId": 100,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.gnosischain.com",
+        "https://rpc.gnosis.gateway.fm",
+        "https://rpc.ankr.com/gnosis",
+        "https://gnosis-mainnet.public.blastapi.io"
+      ],
+      "explorerTxUrl": "https://gnosisscan.io/tx/",
+      "explorerAddressUrl": "https://gnosisscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "kaia",
+      "name": "Kaia Mainnet",
+      "symbol": "KAIA",
+      "chainId": 8217,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://public-en.node.kaia.io"
+      ],
+      "explorerTxUrl": "https://kaiascan.io/tx/",
+      "explorerAddressUrl": "https://kaiascan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "moonbeam",
+      "name": "Moonbeam",
+      "symbol": "GLMR",
+      "chainId": 1284,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.api.moonbeam.network",
+        "https://moonbeam.public.blastapi.io",
+        "https://moonbeam.api.onfinality.io/public",
+        "https://moonbeam.unitedbloc.com"
+      ],
+      "explorerTxUrl": "https://moonbeam.subscan.io/tx/",
+      "explorerAddressUrl": "https://moonbeam.subscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "moonriver",
+      "name": "Moonriver",
+      "symbol": "MOVR",
+      "chainId": 1285,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.api.moonriver.moonbeam.network",
+        "https://moonriver.public.blastapi.io",
+        "https://moonriver.api.onfinality.io/public",
+        "https://moonriver.unitedbloc.com"
+      ],
+      "explorerTxUrl": "https://moonriver.subscan.io/tx/",
+      "explorerAddressUrl": "https://moonriver.subscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "cronos",
+      "name": "Cronos Mainnet",
+      "symbol": "CRO",
+      "chainId": 25,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://evm.cronos.org",
+        "https://cronos-evm-rpc.publicnode.com",
+        "https://cronos.drpc.org",
+        "https://cronos-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://explorer.cronos.org/tx/",
+      "explorerAddressUrl": "https://explorer.cronos.org/address/",
+      "supportsEip1559": true,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "metis",
+      "name": "Metis Andromeda Mainnet",
+      "symbol": "METIS",
+      "chainId": 1088,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://andromeda.metis.io/?owner=1088",
+        "https://metis.drpc.org",
+        "https://metis-rpc.publicnode.com"
+      ],
+      "explorerTxUrl": "https://andromeda-explorer.metis.io/tx/",
+      "explorerAddressUrl": "https://andromeda-explorer.metis.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "celo",
+      "name": "Celo Mainnet",
+      "symbol": "CELO",
+      "chainId": 42220,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://forno.celo.org",
+        "https://celo-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://celoscan.io/tx/",
+      "explorerAddressUrl": "https://celoscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "aurora",
+      "name": "Aurora Mainnet",
+      "symbol": "ETH",
+      "chainId": 1313161554,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://mainnet.aurora.dev",
+        "https://aurora.drpc.org"
+      ],
+      "explorerTxUrl": "https://explorer.aurora.dev/tx/",
+      "explorerAddressUrl": "https://explorer.aurora.dev/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "harmony",
+      "name": "Harmony Mainnet Shard 0",
+      "symbol": "ONE",
+      "chainId": 1666600000,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://api.harmony.one",
+        "https://a.api.s0.t.hmny.io",
+        "https://api.s0.t.hmny.io",
+        "https://rpc.ankr.com/harmony"
+      ],
+      "explorerTxUrl": "https://explorer.harmony.one/tx/",
+      "explorerAddressUrl": "https://explorer.harmony.one/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "oasis-emerald",
+      "name": "Oasis Emerald",
+      "symbol": "ROSE",
+      "chainId": 42262,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://emerald.oasis.io"
+      ],
+      "explorerTxUrl": "https://explorer.oasis.io/mainnet/emerald/tx/",
+      "explorerAddressUrl": "https://explorer.oasis.io/mainnet/emerald/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "bittorrent",
+      "name": "BitTorrent Chain Mainnet",
+      "symbol": "BTT",
+      "chainId": 199,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.bt.io",
+        "https://bittorrent.drpc.org"
+      ],
+      "explorerTxUrl": "https://bttcscan.com/tx/",
+      "explorerAddressUrl": "https://bttcscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "okx-chain",
+      "name": "OKXChain Mainnet",
+      "symbol": "OKT",
+      "chainId": 66,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://exchainrpc.okex.org",
+        "https://okc-mainnet.gateway.pokt.network/v1/lb/6275309bea1b320039c893ff"
+      ],
+      "explorerTxUrl": "https://www.oklink.com/en/okc/tx/",
+      "explorerAddressUrl": "https://www.oklink.com/en/okc/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "heco",
+      "name": "Huobi ECO Chain Mainnet",
+      "symbol": "HT",
+      "chainId": 128,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://http-mainnet.hecochain.com"
+      ],
+      "explorerTxUrl": "https://hecoinfo.com/tx/",
+      "explorerAddressUrl": "https://hecoinfo.com/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "kcc",
+      "name": "KCC Mainnet",
+      "symbol": "KCS",
+      "chainId": 321,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc-mainnet.kcc.network",
+        "https://kcc.mytokenpocket.vip",
+        "https://public-rpc.blockpi.io/http/kcc"
+      ],
+      "explorerTxUrl": "https://explorer.kcc.io/en/tx/",
+      "explorerAddressUrl": "https://explorer.kcc.io/en/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "taiko",
+      "name": "Taiko",
+      "symbol": "ETH",
+      "chainId": 167000,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.mainnet.taiko.xyz",
+        "https://taiko-rpc.publicnode.com"
+      ],
+      "explorerTxUrl": "https://taikoscan.io/tx/",
+      "explorerAddressUrl": "https://taikoscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "blast",
+      "name": "Blast",
+      "symbol": "ETH",
+      "chainId": 81457,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.blast.io",
+        "https://rpc.ankr.com/blast",
+        "https://blast.din.dev/rpc",
+        "https://blastl2-mainnet.public.blastapi.io"
+      ],
+      "explorerTxUrl": "https://blastscan.io/tx/",
+      "explorerAddressUrl": "https://blastscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "mode",
+      "name": "Mode",
+      "symbol": "ETH",
+      "chainId": 34443,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://mainnet.mode.network",
+        "https://mode.drpc.org"
+      ],
+      "explorerTxUrl": "https://explorer.mode.network/tx/",
+      "explorerAddressUrl": "https://explorer.mode.network/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "zora",
+      "name": "Zora",
+      "symbol": "ETH",
+      "chainId": 7777777,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.zora.energy/"
+      ],
+      "explorerTxUrl": "https://explorer.zora.energy/tx/",
+      "explorerAddressUrl": "https://explorer.zora.energy/address/",
+      "supportsEip1559": false,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "core",
+      "name": "Core Blockchain Mainnet",
+      "symbol": "CORE",
+      "chainId": 1116,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.coredao.org/",
+        "https://rpc-core.icecreamswap.com",
+        "https://core.drpc.org"
+      ],
+      "explorerTxUrl": "https://scan.coredao.org/tx/",
+      "explorerAddressUrl": "https://scan.coredao.org/address/",
+      "supportsEip1559": true,
+      "testnet": false,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "sepolia",
+      "name": "Ethereum Sepolia",
+      "symbol": "ETH",
+      "chainId": 11155111,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.sepolia.org",
+        "https://rpc2.sepolia.org",
+        "https://rpc.sepolia.ethpandaops.io",
+        "https://sepolia.gateway.tenderly.co"
+      ],
+      "explorerTxUrl": "https://sepolia.etherscan.io/tx/",
+      "explorerAddressUrl": "https://sepolia.etherscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "optimism-sepolia",
+      "name": "OP Sepolia Testnet",
+      "symbol": "ETH",
+      "chainId": 11155420,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://sepolia.optimism.io",
+        "https://optimism-sepolia.drpc.org",
+        "https://optimism-sepolia-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://sepolia-optimism.etherscan.io/tx/",
+      "explorerAddressUrl": "https://sepolia-optimism.etherscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "base-sepolia",
+      "name": "Base Sepolia Testnet",
+      "symbol": "ETH",
+      "chainId": 84532,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://sepolia.base.org",
+        "https://base-sepolia-rpc.publicnode.com",
+        "https://base-sepolia-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://sepolia.basescan.org/tx/",
+      "explorerAddressUrl": "https://sepolia.basescan.org/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "arbitrum-sepolia",
+      "name": "Arbitrum Sepolia",
+      "symbol": "ETH",
+      "chainId": 421614,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://sepolia-rollup.arbitrum.io/rpc",
+        "https://arbitrum-sepolia-rpc.publicnode.com",
+        "https://arbitrum-sepolia-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://sepolia.arbiscan.io/tx/",
+      "explorerAddressUrl": "https://sepolia.arbiscan.io/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "polygon-amoy",
+      "name": "Amoy",
+      "symbol": "POL",
+      "chainId": 80002,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://polygon-amoy-bor-rpc.publicnode.com",
+        "https://polygon-amoy.drpc.org",
+        "https://rpc.satelink.network/rpc/amoy",
+        "https://polygon-amoy-rpc.blockreq.com/v1/rpc/public"
+      ],
+      "explorerTxUrl": "https://amoy.polygonscan.com/tx/",
+      "explorerAddressUrl": "https://amoy.polygonscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "bsc-testnet",
+      "name": "BNB Smart Chain Testnet",
+      "symbol": "tBNB",
+      "chainId": 97,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
+        "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
+        "https://data-seed-prebsc-1-s2.bnbchain.org:8545",
+        "https://data-seed-prebsc-2-s2.bnbchain.org:8545"
+      ],
+      "explorerTxUrl": "https://testnet.bscscan.com/tx/",
+      "explorerAddressUrl": "https://testnet.bscscan.com/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "holesky",
+      "name": "Holesky",
+      "symbol": "ETH",
+      "chainId": 17000,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.holesky.ethpandaops.io",
+        "https://ethereum-holesky-rpc.publicnode.com",
+        "https://holesky.drpc.org",
+        "https://rpc-holesky.rockx.com"
+      ],
+      "explorerTxUrl": "https://holesky.beaconcha.in/tx/",
+      "explorerAddressUrl": "https://holesky.beaconcha.in/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "avalanche-fuji",
+      "name": "Avalanche Fuji Testnet",
+      "symbol": "AVAX",
+      "chainId": 43113,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://api.avax-test.network/ext/bc/C/rpc",
+        "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      ],
+      "explorerTxUrl": "https://testnet.snowscan.xyz/tx/",
+      "explorerAddressUrl": "https://testnet.snowscan.xyz/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "gnosis-chiado",
+      "name": "Gnosis Chiado Testnet",
+      "symbol": "XDAI",
+      "chainId": 10200,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://rpc.chiadochain.net",
+        "https://rpc.chiado.gnosis.gateway.fm",
+        "https://gnosis-chiado-rpc.publicnode.com",
+        "https://gnosis-chiado.drpc.org"
+      ],
+      "explorerTxUrl": "https://gnosis-chiado.blockscout.com/tx/",
+      "explorerAddressUrl": "https://gnosis-chiado.blockscout.com/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    },
+    {
+      "family": "evm",
+      "id": "harmony-testnet",
+      "name": "Harmony Testnet Shard 0",
+      "symbol": "ONE",
+      "chainId": 1666700000,
+      "coinType": 60,
+      "decimals": 18,
+      "rpcUrls": [
+        "https://api.s0.b.hmny.io"
+      ],
+      "explorerTxUrl": "https://explorer.testnet.harmony.one/tx/",
+      "explorerAddressUrl": "https://explorer.testnet.harmony.one/address/",
+      "supportsEip1559": false,
+      "testnet": true,
+      "enabled": true
+    }
+  ]
+}
