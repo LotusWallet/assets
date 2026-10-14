@@ -1,0 +1,92 @@
+name: sync-data
+
+# 两个职责，分在不同 job 里，避免互相污染：
+#   1. verify —— 任何 PR / push 都跑，坏数据进不了主干
+#   2. sync   —— 定时把 chainlist 转存过来并重新生成产物；只有内容真的变了才提交
+#
+# 为什么用「定时提交」而不是「客户端实时拉 chainlist」：
+# 客户端直连 chainlist 会有三个问题 —— 国内网络不稳、上游改结构就全线崩、
+# 用户设备上多一次不可控的外部请求。转存到自家仓库后，客户端只认一个地址，
+# 上游怎么变都在这里被吸收掉。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/**'
+      - 'chains/**'
+      - 'market/**'
+      - 'chainlist/**'
+      - '.github/workflows/sync-data.yml'
+  pull_request:
+    paths:
+      - 'tools/**'
+      - 'chains/**'
+      - 'market/**'
+      - 'chainlist/**'
+  schedule:
+    # 每天 03:00 UTC（北京时间 11:00）
+    - cron: '0 3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    name: 校验产物
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 校验链清单
+        run: python tools/sync_chainlist.py --check
+
+      - name: 校验市场清单
+        run: python tools/build_market.py --check
+
+      - name: 产物体检
+        run: python tools/verify.py
+
+  sync:
+    name: 同步 chainlist
+    # 只在定时 / 手动触发时跑；PR 里不该有写操作
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 抓取 chainlist 并生成链清单
+        run: python tools/sync_chainlist.py --fetch
+
+      - name: 重新生成市场清单
+        run: python tools/build_market.py
+
+      - name: 产物体检
+        run: python tools/verify.py
+
+      - name: 有变化才提交
+        run: |
+          set -euo pipefail
+          # meta.json 里带 fetchedAt/generatedAt，每次都会变。若只看它，就会天天产生
+          # 无意义提交。这里显式忽略 meta.json，只比较真正影响客户端的产物。
+          if git diff --quiet -- chains/chains.json market/dapps.json chainlist/rpcs.json; then
+            echo "数据无变化，跳过提交"
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chains/ chainlist/ market/
+          git commit -m "chore(data): 同步 chainlist $(date -u +%Y-%m-%d)
+
+          由 .github/workflows/sync-data.yml 自动生成。"
+          git push
