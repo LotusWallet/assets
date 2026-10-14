@@ -13,15 +13,15 @@ LotusWallet/assets —— 生成客户端消费的 DApp 市场清单 `market/dap
 ----
     market/dapps.json          客户端 `MarketRepository` 直接解析的结构
 
-为什么要在 CI 里做「生成」而不是手写产物
+为什么要「生成」而不是手写产物
 ----------------------------------------
 手写产物容易和源数据脱节（改了一个忘了另一个）。这里源数据与产物分离：
-提交 PR 只动 submissions/，产物由 CI 重新生成 —— 结果可复现、diff 可 review。
+提交只动 submissions/，产物由脚本重新生成 —— 结果可复现、diff 可 review。
 
 用法
 ----
     python tools/build_market.py            # 生成 market/dapps.json
-    python tools/build_market.py --check    # 只校验，不写文件（CI 用）
+    python tools/build_market.py --check    # 只校验，不写文件
 """
 
 from __future__ import annotations
